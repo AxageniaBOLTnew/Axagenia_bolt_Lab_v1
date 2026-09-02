@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-surface: #f5f6f8;
+    --color-text: #1f2227;
+    --color-muted: #636e82;
+    --color-border: #e9ebef;
+    --color-primary: #22a882;
+    --color-accent: #f98c07;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: #22a882;
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid #22a882;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .container-ax {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #15876a;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #22a882 0%, #3fc39a 50%, #f98c07 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .card-surface {
+    background: white;
+    border: 1px solid #e9ebef;
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-surface:hover {
+    border-color: #a4ebd2;
+    box-shadow: 0 12px 40px -12px rgba(34, 168, 130, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(34, 168, 130, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 168, 130, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-primary {
+    background: radial-gradient(circle at 50% 50%, rgba(34, 168, 130, 0.15) 0%, transparent 60%);
+  }
+
+  .glow-accent {
+    background: radial-gradient(circle at 50% 50%, rgba(249, 140, 7, 0.12) 0%, transparent 60%);
+  }
+}
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-700 { animation-delay: 700ms; }
+
+  .opacity-0-init {
+    opacity: 0;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
