@@ -13,8 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Section, Container, Eyebrow } from '@/components/ui/Section';
-import { supabase } from '@/lib/supabase';
-import type { DiagnosticRequest } from '@/lib/types';
+
 
 type FormState = {
   first_name: string;
@@ -127,21 +126,17 @@ export function DiagnosticPage() {
 
     setSubmitting(true);
     try {
-      const payload: DiagnosticRequest = {
-        first_name: form.first_name.trim(),
-        last_name: form.last_name.trim(),
-        email: form.email.trim(),
-        company: form.company.trim(),
-        role: form.role.trim(),
-        problem: form.problem.trim(),
-        consent: form.consent,
-      };
-
-      const { error } = await supabase
-        .from('diagnostic_requests')
-        .insert(payload);
-
-      if (error) throw error;
+      const subject = encodeURIComponent(`Demande de diagnostic — ${form.first_name} ${form.last_name}`);
+      const body = encodeURIComponent(
+        `Prénom : ${form.first_name.trim()}\n` +
+        `Nom : ${form.last_name.trim()}\n` +
+        `E-mail : ${form.email.trim()}\n` +
+        `Entreprise : ${form.company.trim()}\n` +
+        `Fonction : ${form.role.trim()}\n` +
+        `Besoin : ${form.problem.trim()}\n` +
+        `Consentement : ${form.consent ? 'Oui' : 'Non'}`
+      );
+      window.location.href = `mailto:contact@axagenia.fr?subject=${subject}&body=${body}`;
 
       navigate('/diagnostic/confirmation');
     } catch {

@@ -17,7 +17,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Section, Container, Eyebrow } from '@/components/ui/Section';
 import { products } from '@/lib/productsData';
-import { supabase } from '@/lib/supabase';
+
 
 const pricingPlans = [
   {
@@ -152,17 +152,17 @@ export function ProductDetailPage() {
     try {
       const problem = form.problem.trim() || `Demande d'information concernant le produit : ${product.name}`;
 
-      const { error } = await supabase.from('diagnostic_requests').insert({
-        first_name: form.first_name.trim(),
-        last_name: form.last_name.trim(),
-        email: form.email.trim(),
-        company: form.company.trim(),
-        role: form.role.trim(),
-        problem,
-        consent: form.consent,
-      });
-
-      if (error) throw error;
+      const subject = encodeURIComponent(`Demande produit — ${product.name} — ${form.first_name} ${form.last_name}`);
+      const body = encodeURIComponent(
+        `Prénom : ${form.first_name.trim()}\n` +
+        `Nom : ${form.last_name.trim()}\n` +
+        `E-mail : ${form.email.trim()}\n` +
+        `Entreprise : ${form.company.trim()}\n` +
+        `Fonction : ${form.role.trim()}\n` +
+        `Besoin : ${problem}\n` +
+        `Consentement : ${form.consent ? 'Oui' : 'Non'}`
+      );
+      window.location.href = `mailto:contact@axagenia.fr?subject=${subject}&body=${body}`;
 
       navigate('/diagnostic/confirmation');
     } catch {
